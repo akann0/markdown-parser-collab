@@ -22,7 +22,7 @@ public class MarkdownParse {
             if(openBracket == -1 || closeBracket == -1 ||
                 openParen == -1 || closeParen == -1) {
                     break;
-                }
+            }
 
              //fix 2: skip image links
              if(markdown.substring(currentIndex, openBracket).contains("![")){
