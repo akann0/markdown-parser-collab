@@ -13,15 +13,16 @@ public class MarkdownParse {
         int currentIndex = 0;
         while(currentIndex < markdown.length()) {
             int openBracket = markdown.indexOf("[", currentIndex);
-            
-            // fix 1: break loop if [ is not found
-            if(openBracket == -1) {
-                break;
-            }
-
             int closeBracket = markdown.indexOf("]", openBracket);
             int openParen = markdown.indexOf("(", closeBracket);
             int closeParen = markdown.indexOf(")", openParen);
+
+            //fix 3: break loop if [, ], ( or ) is not found
+            //(fix 1 removed because redundant)
+            if(openBracket == -1 || closeBracket == -1 ||
+                openParen == -1 || closeParen == -1) {
+                    break;
+                }
 
              //fix 2: skip image links
              if(markdown.substring(currentIndex, openBracket).contains("![")){
