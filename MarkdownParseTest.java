@@ -7,8 +7,16 @@ import java.beans.Transient;
 import java.nio.file.Files;
 import java.util.ArrayList;
 
+/**
+ * Commands for running test in terminal:
+ * javac -cp ".;lib\junit-4.13.2.jar;lib\hamcrest-core-1.3.jar" MarkdownParseTest.java
+ * java -cp ".;lib/junit-4.13.2.jar;lib/hamcrest-core-1.3.jar" org.junit.runner.JUnitCore MarkdownParseTest
+ */
 import org.junit.*;
 public class MarkdownParseTest {
+
+    String filePath = "C:\\Users\\JYoung\\Documents\\GitHub\\markdown-parser-collab\\";
+
     @Test
     public void addition() {
         assertEquals(2, 1 + 1);
@@ -22,7 +30,7 @@ public class MarkdownParseTest {
     @Test
     public void getLinksTest() throws IOException {
         boolean result = false;
-        Path fileName = Path.of("testFile.md");
+        Path fileName = Path.of(filePath + "testFile.md");
         String content = Files.readString(fileName);
         ArrayList<String> links = MarkdownParse.getLinks(content);
 
@@ -37,7 +45,7 @@ public class MarkdownParseTest {
     @Test
     public void testFile() throws IOException {
         boolean result = false;
-        Path fileName = Path.of("test-file.md");
+        Path fileName = Path.of(filePath + "test-file.md");
         String content = Files.readString(fileName);
         ArrayList<String> links = MarkdownParse.getLinks(content);
 
@@ -45,6 +53,21 @@ public class MarkdownParseTest {
             links.contains("some-thing.html")) {
                 result = true;
             }
+
+        assertTrue(result);
+    }
+
+    @Test
+    public void testFile9() throws IOException {
+        boolean result = false;
+        Path fileName = Path.of(filePath + "test-file9.md");
+        String content = Files.readString(fileName);
+        ArrayList<String> links = MarkdownParse.getLinks(content);
+
+        // returned array should be empty as there are no links in the file
+        if (links.size() == 0) {
+                result = true;
+        }
 
         assertTrue(result);
     }
